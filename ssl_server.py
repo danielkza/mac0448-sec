@@ -15,13 +15,16 @@ class Echo(protocol.Protocol):
         sys.stdout.write(data)
         self.transport.write(data)
 
+class EchoFactory(protocol.Factory):
+    protocol = Echo
+
 if __name__ == '__main__':
     try:
         port = int(sys.argv[1])
     except:
         port = 8080
 
-    reactor.listenSSL(port, protocol.Factory.forProtocol(Echo),
+    reactor.listenSSL(port, EchoFactory()),
         ssl.DefaultOpenSSLContextFactory(
             'certs/server_key.pem', 'certs/server_cert.pem'))
     reactor.run()
