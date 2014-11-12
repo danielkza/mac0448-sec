@@ -24,7 +24,7 @@ if __name__ == '__main__':
     except:
         port = 8080
 
-    reactor.listenSSL(port, EchoFactory()),
+    reactor.listenSSL(port, EchoFactory(),
         ssl.DefaultOpenSSLContextFactory(
             'certs/server_key.pem', 'certs/server_cert.pem'))
     reactor.run()
